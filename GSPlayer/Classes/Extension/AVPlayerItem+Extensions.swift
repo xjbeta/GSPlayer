@@ -30,22 +30,7 @@ public extension AVPlayerItem {
     var totalDuration: Double {
         return Double(CMTimeGetSeconds(asset.duration))
     }
-    
-}
-
-extension AVPlayerItem {
-    
-    static var loaderPrefix: String = "__loader__"
-    
-    var url: URL? {
-        guard
-            let urlString = (asset as? AVURLAsset)?.url.absoluteString,
-            urlString.hasPrefix(AVPlayerItem.loaderPrefix)
-            else { return nil }
         
-        return urlString.replacingOccurrences(of: AVPlayerItem.loaderPrefix, with: "").url
-    }
-    
     var isEnoughToPlay: Bool {
         guard
             let url = url,
@@ -77,4 +62,18 @@ extension AVPlayerItem {
         self.init(asset: urlAsset)
     }
     
+}
+
+extension AVPlayerItem {
+    
+    static var loaderPrefix: String = "__loader__"
+    
+    var url: URL? {
+        guard
+            let urlString = (asset as? AVURLAsset)?.url.absoluteString,
+            urlString.hasPrefix(AVPlayerItem.loaderPrefix)
+            else { return nil }
+        
+        return urlString.replacingOccurrences(of: AVPlayerItem.loaderPrefix, with: "").url
+    }
 }
