@@ -14,7 +14,7 @@ public enum VideoCacheManager {
         get {
             FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("GSPlayer")
-                .absoluteString
+                .path
         }
     }
     
