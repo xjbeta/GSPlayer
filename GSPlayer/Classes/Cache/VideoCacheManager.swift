@@ -8,9 +8,15 @@
 
 import Foundation
 
-private let directory = NSTemporaryDirectory().appendingPathComponent("GSPlayer")
-
 public enum VideoCacheManager {
+    
+    public static var directory: String {
+        get {
+            FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("GSPlayer")
+                .absoluteString
+        }
+    }
     
     public static func cachedFilePath(for url: URL) -> String {
         return directory
