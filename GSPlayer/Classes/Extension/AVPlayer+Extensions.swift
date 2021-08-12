@@ -16,15 +16,27 @@ import AppKit
 public extension AVPlayer {
     
     var bufferProgress: Double {
-        return currentItem?.bufferProgress ?? -1
+        guard let item = currentItem,
+              !item.isPlaybackBufferEmpty else {
+            return -1
+        }
+        return item.bufferProgress
     }
     
     var currentBufferDuration: Double {
-        return currentItem?.currentBufferDuration ?? -1
+        guard let item = currentItem,
+              !item.isPlaybackBufferEmpty else {
+            return -1
+        }
+        return item.currentBufferDuration
     }
     
     var currentDuration: Double {
-        return currentItem?.currentDuration ?? -1
+        guard let item = currentItem,
+              !item.isPlaybackBufferEmpty else {
+            return -1
+        }
+        return item.currentDuration
     }
     
     #if !os(macOS)
@@ -51,11 +63,19 @@ public extension AVPlayer {
     #endif
     
     var playProgress: Double {
-        return currentItem?.playProgress ?? -1
+        guard let item = currentItem,
+              !item.isPlaybackBufferEmpty else {
+            return -1
+        }
+        return item.playProgress
     }
     
     var totalDuration: Double {
-        return currentItem?.totalDuration ?? -1
+        guard let item = currentItem,
+              !item.isPlaybackBufferEmpty else {
+            return -1
+        }
+        return item.totalDuration
     }
     
     convenience init(asset: AVURLAsset) {
