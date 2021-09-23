@@ -33,6 +33,14 @@ public class VideoCacheHandler {
         
         if !fileManager.fileExists(atPath: filePath) {
             fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
+        } else {
+            let attributes = [
+                FileAttributeKey.creationDate: NSDate()
+            ]
+            
+            let path = VideoCacheConfiguration.configurationFilePath(for: filePath)
+            try fileManager.setAttributes(attributes, ofItemAtPath: filePath)
+            try fileManager.setAttributes(attributes, ofItemAtPath: path)
         }
         
         configuration = try VideoCacheConfiguration.configuration(for: filePath)
